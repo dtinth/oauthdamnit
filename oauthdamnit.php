@@ -72,14 +72,14 @@ abstract class OAuthDamnitBase {
 		foreach ($params as $k => $v) {
 			if (is_array($v)) {
 				foreach ($v as $vv) {
-					$output[] = $this->encode($k) . '=' . $this->encode($vv);
+					$output[] = $this->encode($k) . ' ' . $this->encode($vv);
 				}
 			} else {
-				$output[] = $this->encode($k) . '=' . $this->encode($v);
+				$output[] = $this->encode($k) . ' ' . $this->encode($v);
 			}
 		}
 		sort ($output, SORT_STRING);
-		return implode('&', $output);
+		return str_replace(' ', '=', implode('&', $output));
 	}
 	function hmac_sha1($key, $message) {
 		if (function_exists('hash_hmac')) {
